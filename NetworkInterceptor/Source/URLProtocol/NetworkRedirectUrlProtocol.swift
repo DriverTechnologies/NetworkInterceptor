@@ -35,6 +35,8 @@ class NetworkRedirectUrlProtocol: URLProtocol {
             NSLog("Redirected Request CURL => \(redirectedRequest.cURL)")
         #endif
         redirectedRequest.addValue("true", forHTTPHeaderField: "Redirected")
+        redirectedRequest.addValue(self.request.url?.host ?? "", forHTTPHeaderField: "X-Forwarded-Host")
+        redirectedRequest.addValue(self.request.url?.scheme ?? "", forHTTPHeaderField: "X-Forwarded-Proto")
         
         let config = URLSessionConfiguration.default
         config.protocolClasses = [type(of: self)]

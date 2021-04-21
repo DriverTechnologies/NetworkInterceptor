@@ -8,7 +8,7 @@ DEPENDENCIES:
   - URLRequest-cURL
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - GzipSwift
     - URLRequest-cURL
 
@@ -18,4 +18,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 705ea690507f6390f795ead03efbad69830e36d4
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.10.1
