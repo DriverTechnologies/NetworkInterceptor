@@ -12,7 +12,7 @@ import URLRequest_cURL
 class URLRequestFactory {
 
     public func createURLRequest(originalUrlRequest: URLRequest, url: URL) -> URLRequest {
-        var urlString = "\(url.absoluteString)\(originalUrlRequest.url!.path)"
+        var urlString = "\(url.absoluteString)\(originalUrlRequest.url!.path.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? "")"
         if let query = originalUrlRequest.url?.query {
             urlString = "\(urlString)?\(query)"
         }
