@@ -11,11 +11,12 @@ import URLRequest_cURL
 
 class URLRequestFactory {
 
-    public func createURLRequest(originalUrlRequest: URLRequest, url: URL) -> URLRequest {
-        var urlString = "\(url.absoluteString)\(originalUrlRequest.url!.path.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? "")"
-        if let query = originalUrlRequest.url?.query {
-            urlString = "\(urlString)?\(query)"
+    public func createURLRequest(originalUrlRequest: URLRequest, url domainUrl: URL) -> URLRequest {
+        guard let originalUrl = originalUrlRequest.url else {
+            return originalUrlRequest
         }
+        
+        let urlString = originalUrl.absoluteString.replacingOccurrences(of: "\(originalUrl.scheme!)://\(originalUrl.host!)", with: domainUrl.absoluteString)
         var redirectedRequest = URLRequest(url: URL(string: urlString)!)
         if let _ = originalUrlRequest.httpBodyStream,
             let httpBodyStreamData = originalUrlRequest.getHttpBodyStreamData() {
