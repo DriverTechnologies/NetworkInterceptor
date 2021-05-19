@@ -38,6 +38,10 @@ class NetworkRedirectUrlProtocol: URLProtocol {
         redirectedRequest.addValue(self.request.url?.host ?? "", forHTTPHeaderField: "X-Forwarded-Host")
         redirectedRequest.addValue(self.request.url?.scheme ?? "", forHTTPHeaderField: "X-Forwarded-Proto")
         
+        if let port = self.request.url?.port {
+            redirectedRequest.addValue("\(port)", forHTTPHeaderField: "X-Forwarded-Port")
+        }
+        
         let config = URLSessionConfiguration.default
         config.protocolClasses = [type(of: self)]
         

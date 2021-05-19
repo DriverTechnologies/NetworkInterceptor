@@ -16,7 +16,14 @@ class URLRequestFactory {
             return originalUrlRequest
         }
         
-        let urlString = originalUrl.absoluteString.replacingOccurrences(of: "\(originalUrl.scheme!)://\(originalUrl.host!)", with: domainUrl.absoluteString)
+        var urlString: String
+        
+        if let port = originalUrl.port {
+            urlString = originalUrl.absoluteString.replacingOccurrences(of: "\(originalUrl.scheme!)://\(originalUrl.host!):\(port)", with: domainUrl.absoluteString)
+        } else {
+            urlString = originalUrl.absoluteString.replacingOccurrences(of: "\(originalUrl.scheme!)://\(originalUrl.host!)", with: domainUrl.absoluteString)
+        }
+        
         var redirectedRequest = URLRequest(url: URL(string: urlString)!)
         if let _ = originalUrlRequest.httpBodyStream,
             let httpBodyStreamData = originalUrlRequest.getHttpBodyStreamData() {
